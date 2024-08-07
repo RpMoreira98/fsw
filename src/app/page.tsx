@@ -1,7 +1,9 @@
 "use client";
 
+import { Button } from "./_components/ui/button";
+
 const Home = () => {
-  return <div className="bg-red-400">Aqui será a pagina inicial </div>;
+  return <Button>Clique em mim</Button>;
 };
 
 export default Home;

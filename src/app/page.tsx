@@ -1,5 +1,4 @@
 "use client";
-
 import { SearchIcon } from "lucide-react";
 import { Header } from "./_components/hearder";
 import { Button } from "./_components/ui/button";

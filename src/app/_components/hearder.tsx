@@ -1,21 +1,24 @@
+'use client'
 import Image from "next/image";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { MenuIcon } from "lucide-react";
-import { useState } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+
 
 export const Header = () => {
-  const [open, setOpen] = useState(false);
-  const openMenu = () => {
-    setOpen(!open);
-  };
   return (
     <Card>
       <CardContent className="justify-between items-center flex flex-row p-5">
         <Image src="/logo.png" alt={""} height={18} width={120}></Image>
-        <Button size="icon" variant="outline" onClick={openMenu}>
+       <Sheet>
+        <SheetTrigger>
+        <Button size="icon" variant="outline" className="rounded-[5px]" onClick={() => alert('Abriu')}>
           <MenuIcon />
         </Button>
+        </SheetTrigger>
+        <SheetContent></SheetContent>
+       </Sheet>
       </CardContent>
     </Card>
   );

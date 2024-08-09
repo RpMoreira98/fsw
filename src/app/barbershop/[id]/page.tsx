@@ -3,6 +3,7 @@ import {  MapPinIcon, StarIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 import { BarberPage } from "./barberpage";
 import { ServiceItem } from "@/app/_components/servicesItem";
+import { PhoneComponent } from "@/app/_components/phonecomponet-item";
 
 interface BarberPageProps {
   params: {
@@ -23,6 +24,8 @@ const BarbershopPage = async ({ params }: BarberPageProps) => {
   if (!barbershop) {
     return notFound();
   }
+
+ 
 
   return (
     <div>
@@ -45,10 +48,18 @@ const BarbershopPage = async ({ params }: BarberPageProps) => {
           {barbershop?.description}
         </p>
       </div>
-      <div className="p-5">
+      <div className="p-5 border-solid border-b">
       <div className="space-y-4">
         <h2 className=" text-gray-400 font-bold uppercase mb-3">SERVIÇOS</h2>
         {barbershop.services.map(services => <ServiceItem key={services.id} barbershop={services}/>)}
+        </div>
+      </div>
+      <div className="p-5">
+      <h2 className=" text-gray-400 font-bold uppercase">Contatos</h2>
+        <div className="space-y-3 mt-3">
+          {barbershop.phones.map((phones) => 
+            <PhoneComponent key={phones} phones={phones}/>
+          )}
         </div>
       </div>
     </div>

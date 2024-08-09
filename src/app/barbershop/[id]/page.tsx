@@ -1,9 +1,8 @@
-import { Button } from "@/app/_components/ui/button";
 import { db } from "@/app/lib/prisma";
-import { ChevronLeft, MapPinIcon, MenuIcon, StarIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import {  MapPinIcon, StarIcon } from "lucide-react";
 import { notFound } from "next/navigation";
+import { BarberPage } from "./barberpage";
+import { ServiceItem } from "@/app/_components/servicesItem";
 
 interface BarberPageProps {
   params: {
@@ -16,6 +15,9 @@ const BarbershopPage = async ({ params }: BarberPageProps) => {
     where: {
       id: params.id,
     },
+    include: {
+      services: true
+    }
   });
 
   if (!barbershop) {
@@ -24,30 +26,7 @@ const BarbershopPage = async ({ params }: BarberPageProps) => {
 
   return (
     <div>
-      <div className="relative w-full h-[250px]">
-        <Image
-          src={barbershop?.imageUrl}
-          fill
-          className="object-cover"
-          alt={barbershop?.name}
-        ></Image>
-        <Button
-          size="icon"
-          variant="secondary"
-          className="absolute top-4 left-4 rounded-[5px]"
-        >
-          <Link href="/">
-            <ChevronLeft />
-          </Link>
-        </Button>
-        <Button
-          size="icon"
-          variant="secondary"
-          className="absolute top-4 right-4 rounded-[5px]"
-        >
-          <MenuIcon />
-        </Button>
-      </div>
+      <BarberPage barbershop={barbershop}/> 
       <div className="p-5 flex flex-col gap-2 border-b border-solid">
         <h1 className="font-bold text-xl">{barbershop?.name}</h1>
         <div className="flex space-x-1 items-center">
@@ -65,6 +44,12 @@ const BarbershopPage = async ({ params }: BarberPageProps) => {
         <p className="mt-5 font-medium text-sm text-left">
           {barbershop?.description}
         </p>
+      </div>
+      <div className="p-5">
+      <div className="space-y-4">
+        <h2 className=" text-gray-400 font-bold uppercase mb-3">SERVIÇOS</h2>
+        {barbershop.services.map(services => <ServiceItem key={services.id} barbershop={services}/>)}
+        </div>
       </div>
     </div>
   );
